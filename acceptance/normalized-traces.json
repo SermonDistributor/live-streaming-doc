@@ -1,0 +1,456 @@
+{
+  "format": "Sermon Distributor research fixtures v1",
+  "semantics": "Normalized business observations for a future test harness, not original provider webhook payloads. Each case resets its database, uses approved synthetic churches and one bound occurrence unless stated, and all times are UTC. Counts are scoped to that case.",
+  "cases": [
+    {
+      "id": "duplicate-and-reconnect",
+      "provider": "mux",
+      "date": "2026-11-29",
+      "observations": [
+        {
+          "receipt": "event-01",
+          "observed_at": "2026-11-29T06:52:00Z",
+          "kind": "rehearsal_connected",
+          "subject": "stream-a",
+          "context": "test"
+        },
+        {
+          "receipt": "event-02",
+          "observed_at": "2026-11-29T06:54:00Z",
+          "kind": "rehearsal_ended",
+          "subject": "stream-a",
+          "context": "test"
+        },
+        {
+          "receipt": "event-03",
+          "observed_at": "2026-11-29T07:00:01Z",
+          "kind": "live_confirmed",
+          "subject": "stream-a",
+          "context": "session-1"
+        },
+        {
+          "receipt": "event-04",
+          "observed_at": "2026-11-29T07:12:00Z",
+          "kind": "signal_lost",
+          "subject": "stream-a",
+          "context": "session-1"
+        },
+        {
+          "receipt": "event-05",
+          "observed_at": "2026-11-29T07:12:12Z",
+          "kind": "signal_restored",
+          "subject": "stream-a",
+          "context": "session-1"
+        },
+        {
+          "receipt": "event-06",
+          "observed_at": "2026-11-29T08:30:00Z",
+          "kind": "broadcast_completed",
+          "subject": "stream-a",
+          "context": "session-1"
+        },
+        {
+          "receipt": "event-07",
+          "observed_at": "2026-11-29T08:31:00Z",
+          "kind": "audio_verified",
+          "subject": "asset-1",
+          "context": "session-1"
+        },
+        {
+          "receipt": "event-08",
+          "observed_at": "2026-11-29T08:32:00Z",
+          "kind": "video_verified",
+          "subject": "asset-1",
+          "context": "session-1"
+        },
+        {
+          "receipt": "event-09",
+          "observed_at": "2026-11-29T08:33:00Z",
+          "kind": "duplicate_of",
+          "subject": "event-08",
+          "context": "session-1"
+        }
+      ],
+      "expected": {
+        "sermons": 1,
+        "verified_audio": 1,
+        "verified_video": 1,
+        "primary_replay": "local",
+        "preacher": "ruth",
+        "church": "north",
+        "live_badge": false
+      },
+      "purpose": "A brief reconnect keeps the same service; the last entry repeats the video verification receipt and cannot attach a second file."
+    },
+    {
+      "id": "one-off-substitute",
+      "provider": "youtube",
+      "date": "2026-11-29",
+      "observations": [
+        {
+          "receipt": "event-01",
+          "observed_at": "2026-11-29T05:00:00Z",
+          "kind": "adopt_existing_event",
+          "subject": "event-y1",
+          "context": "sunday"
+        },
+        {
+          "receipt": "event-02",
+          "observed_at": "2026-11-29T05:05:00Z",
+          "kind": "substitute_preacher",
+          "subject": "paul",
+          "context": "sunday"
+        },
+        {
+          "receipt": "event-03",
+          "observed_at": "2026-11-29T06:40:00Z",
+          "kind": "provider_moves_start",
+          "subject": "08:00:00Z",
+          "context": "sunday"
+        },
+        {
+          "receipt": "event-04",
+          "observed_at": "2026-11-29T08:00:15Z",
+          "kind": "live_confirmed",
+          "subject": "event-y1",
+          "context": "sunday"
+        },
+        {
+          "receipt": "event-05",
+          "observed_at": "2026-11-29T09:30:00Z",
+          "kind": "broadcast_completed",
+          "subject": "event-y1",
+          "context": "sunday"
+        },
+        {
+          "receipt": "event-06",
+          "observed_at": "2026-11-29T10:30:00Z",
+          "kind": "owner_audio_upload_verified",
+          "subject": "original-a",
+          "context": "sunday"
+        }
+      ],
+      "expected": {
+        "provider_creates": 0,
+        "sermons": 1,
+        "verified_audio": 1,
+        "verified_video": 0,
+        "preacher": "paul",
+        "church": "north",
+        "future_series_preacher": "ruth",
+        "archive_source": "church-original"
+      },
+      "purpose": "Following an existing event preserves the church's encoder and captures a one-off substitute without changing the recurring default."
+    },
+    {
+      "id": "private-link-only",
+      "provider": "telegram-link",
+      "date": "2026-12-02",
+      "observations": [
+        {
+          "receipt": "event-01",
+          "observed_at": "2026-12-02T16:29:30Z",
+          "kind": "member_requests_countdown",
+          "subject": "member-a",
+          "context": "wednesday"
+        },
+        {
+          "receipt": "event-02",
+          "observed_at": "2026-12-02T16:30:00Z",
+          "kind": "scheduled_time_reached",
+          "subject": "local-clock",
+          "context": "wednesday"
+        },
+        {
+          "receipt": "event-03",
+          "observed_at": "2026-12-02T16:32:00Z",
+          "kind": "operator_confirms_live",
+          "subject": "operator-north",
+          "context": "wednesday"
+        },
+        {
+          "receipt": "event-04",
+          "observed_at": "2026-12-02T16:33:00Z",
+          "kind": "anonymous_requests_status",
+          "subject": "guest",
+          "context": "wednesday"
+        },
+        {
+          "receipt": "event-05",
+          "observed_at": "2026-12-02T17:40:00Z",
+          "kind": "operator_confirms_end",
+          "subject": "operator-north",
+          "context": "wednesday"
+        },
+        {
+          "receipt": "event-06",
+          "observed_at": "2026-12-02T18:10:00Z",
+          "kind": "owner_audio_upload_verified",
+          "subject": "audio-wed",
+          "context": "wednesday"
+        }
+      ],
+      "expected": {
+        "sermons": 1,
+        "verified_audio": 1,
+        "member_watch_mode": "external",
+        "anonymous_invite_disclosed": false,
+        "provider_api_writes": 0,
+        "preacher": "ruth",
+        "church": "north"
+      },
+      "purpose": "The stable church page can show an externally watched service, create a local sermon afterwards, and keep a private invite out of anonymous responses."
+    },
+    {
+      "id": "archive-permission-denied",
+      "provider": "amazon-ivs",
+      "date": "2026-11-29",
+      "observations": [
+        {
+          "receipt": "event-01",
+          "observed_at": "2026-11-29T07:01:00Z",
+          "kind": "live_confirmed",
+          "subject": "ivs-channel",
+          "context": "stream-a"
+        },
+        {
+          "receipt": "event-02",
+          "observed_at": "2026-11-29T08:31:00Z",
+          "kind": "broadcast_completed",
+          "subject": "ivs-channel",
+          "context": "stream-a"
+        },
+        {
+          "receipt": "event-03",
+          "observed_at": "2026-11-29T08:32:00Z",
+          "kind": "recording_completed",
+          "subject": "s3-prefix-a",
+          "context": "stream-a"
+        },
+        {
+          "receipt": "event-04",
+          "observed_at": "2026-11-29T08:34:00Z",
+          "kind": "archive_access_denied",
+          "subject": "s3-prefix-a",
+          "context": "stream-a"
+        },
+        {
+          "receipt": "event-05",
+          "observed_at": "2026-11-29T09:00:00Z",
+          "kind": "credentials_repaired",
+          "subject": "s3-prefix-a",
+          "context": "stream-a"
+        },
+        {
+          "receipt": "event-06",
+          "observed_at": "2026-11-29T09:02:00Z",
+          "kind": "missing_segment",
+          "subject": "s3-prefix-a",
+          "context": "stream-a"
+        }
+      ],
+      "expected": {
+        "sermons_published": 0,
+        "verified_audio": 0,
+        "verified_video": 0,
+        "archive_state": "needs_recovery",
+        "provider_media_deleted": false,
+        "church": "north"
+      },
+      "purpose": "The event can end normally when S3 access fails. Repairing credentials is insufficient to mark an incomplete recording verified."
+    },
+    {
+      "id": "stale-disconnect",
+      "provider": "cloudflare-stream",
+      "date": "2026-12-06",
+      "observations": [
+        {
+          "receipt": "event-01",
+          "observed_at": "2026-12-06T07:02:00Z",
+          "kind": "live_confirmed",
+          "subject": "input-a",
+          "context": "video-new"
+        },
+        {
+          "receipt": "event-02",
+          "observed_at": "2026-12-06T07:02:30Z",
+          "kind": "delayed_prior_end",
+          "subject": "input-a",
+          "context": "video-old"
+        },
+        {
+          "receipt": "event-03",
+          "observed_at": "2026-12-06T07:03:00Z",
+          "kind": "lifecycle_live_readback",
+          "subject": "input-a",
+          "context": "video-new"
+        }
+      ],
+      "expected": {
+        "current_session": "video-new",
+        "live_badge": true,
+        "sermons": 0,
+        "preacher": "ruth",
+        "church": "north"
+      },
+      "purpose": "A delayed receipt about a previous occurrence cannot end the active session on a reused input."
+    },
+    {
+      "id": "uncertain-remote-create",
+      "provider": "youtube",
+      "date": "2026-11-26",
+      "observations": [
+        {
+          "receipt": "event-01",
+          "observed_at": "2026-11-26T08:00:00Z",
+          "kind": "enqueue_create",
+          "subject": "local-sunday",
+          "context": "revision-1"
+        },
+        {
+          "receipt": "event-02",
+          "observed_at": "2026-11-26T08:00:03Z",
+          "kind": "provider_created_response_lost",
+          "subject": "event-y2",
+          "context": "revision-1"
+        },
+        {
+          "receipt": "event-03",
+          "observed_at": "2026-11-26T08:01:00Z",
+          "kind": "editor_changes_time",
+          "subject": "local-sunday",
+          "context": "revision-2"
+        },
+        {
+          "receipt": "event-04",
+          "observed_at": "2026-11-26T08:02:00Z",
+          "kind": "matched_unique_remote",
+          "subject": "event-y2",
+          "context": "revision-1"
+        },
+        {
+          "receipt": "event-05",
+          "observed_at": "2026-11-26T08:03:00Z",
+          "kind": "remote_update_confirmed",
+          "subject": "event-y2",
+          "context": "revision-2"
+        }
+      ],
+      "expected": {
+        "remote_events": 1,
+        "remote_id": "event-y2",
+        "sync_state": "synchronized",
+        "applied_revision": 2,
+        "sermons": 0
+      },
+      "purpose": "Read back or quarantine an uncertain write before applying the new revision."
+    },
+    {
+      "id": "guest-and-two-sources",
+      "provider": "simulcast",
+      "date": "2026-12-04",
+      "observations": [
+        {
+          "receipt": "event-01",
+          "observed_at": "2026-12-04T17:00:00Z",
+          "kind": "live_confirmed",
+          "subject": "mux-room",
+          "context": "session-m"
+        },
+        {
+          "receipt": "event-02",
+          "observed_at": "2026-12-04T17:00:20Z",
+          "kind": "live_confirmed",
+          "subject": "youtube-alt",
+          "context": "session-y"
+        },
+        {
+          "receipt": "event-03",
+          "observed_at": "2026-12-04T18:00:00Z",
+          "kind": "broadcast_completed",
+          "subject": "mux-room",
+          "context": "session-m"
+        },
+        {
+          "receipt": "event-04",
+          "observed_at": "2026-12-04T18:00:20Z",
+          "kind": "broadcast_completed",
+          "subject": "youtube-alt",
+          "context": "session-y"
+        },
+        {
+          "receipt": "event-05",
+          "observed_at": "2026-12-04T18:10:00Z",
+          "kind": "video_verified",
+          "subject": "mux-recording",
+          "context": "friday"
+        },
+        {
+          "receipt": "event-06",
+          "observed_at": "2026-12-04T18:11:00Z",
+          "kind": "provider_replay_ready",
+          "subject": "youtube-video",
+          "context": "friday"
+        }
+      ],
+      "expected": {
+        "sermons": 1,
+        "verified_video": 1,
+        "alternate_provider_replays": 1,
+        "church": "north",
+        "preacher": "guest-east",
+        "preacher_home_church": "east"
+      },
+      "purpose": "Two destinations and a guest preacher do not imply two sermons or a transfer of church ownership."
+    },
+    {
+      "id": "local-only-policy",
+      "provider": "generic-hls",
+      "date": "2026-12-06",
+      "observations": [
+        {
+          "receipt": "event-01",
+          "observed_at": "2026-12-06T07:00:00Z",
+          "kind": "live_confirmed",
+          "subject": "source-x",
+          "context": "sunday"
+        },
+        {
+          "receipt": "event-02",
+          "observed_at": "2026-12-06T08:25:00Z",
+          "kind": "broadcast_completed",
+          "subject": "source-x",
+          "context": "sunday"
+        },
+        {
+          "receipt": "event-03",
+          "observed_at": "2026-12-06T08:30:00Z",
+          "kind": "video_verified",
+          "subject": "local-file",
+          "context": "sunday"
+        },
+        {
+          "receipt": "event-04",
+          "observed_at": "2026-12-06T09:00:00Z",
+          "kind": "local_playback_unavailable",
+          "subject": "local-file",
+          "context": "sunday"
+        },
+        {
+          "receipt": "event-05",
+          "observed_at": "2026-12-06T09:01:00Z",
+          "kind": "provider_replay_ready",
+          "subject": "remote-copy",
+          "context": "sunday"
+        }
+      ],
+      "expected": {
+        "sermons": 1,
+        "replay_availability": "local repair required",
+        "exposed_remote_fallback": false,
+        "remote_deletes": 0
+      },
+      "purpose": "Local-only playback preference continues to apply if the local web origin temporarily fails."
+    }
+  ]
+}
