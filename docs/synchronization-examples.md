@@ -19,8 +19,8 @@ At 08:55 North begins rehearsal. East goes live at 09:00 and North at 09:05. One
 ## A provider accepts a create request but times out
 
 1. Editor saves Sunday occurrence revision 3. Transaction records intent “create event for destination D/revision 3” and the expected immutable owning church.
-2. Worker A obtains a lease and sends the create. The provider creates E7; the response times out before the external ID reaches Joomla.
-3. Worker B sees the uncertain result. If the API supports the original idempotency key, reuse it. Otherwise use supported correlation metadata or the authorized recent event list to locate E7. Match by unique stable identity; two Sunday broadcasts with matching titles require human selection.
+2. Worker A obtains a lease and sends the create. The provider creates E7. The response times out before the external ID reaches Joomla.
+3. Worker B sees the uncertain result. If the API supports the original idempotency key, reuse it. Otherwise use supported correlation metadata or the authorized recent event list to locate E7. Match by unique stable identity. Two Sunday broadcasts with matching titles require human selection.
 4. Editor changes start time while resolution is pending. Keep revision 4 queued after the original create. Once E7 is adopted, apply a supported update for revision 4. Superseded intent must not create another event.
 5. Provider delivers callback before the local mapping arrives. Store, authenticate and park it. After linking E7 replay the receipt, update its actual state and acknowledge completion in history. No duplicate post or invisible failed service remains.
 
@@ -28,9 +28,9 @@ At 08:55 North begins rehearsal. East goes live at 09:00 and North at 09:05. One
 
 | Local change since baseline | Remote change since baseline | Resolution |
 | --- | --- | --- |
-| Changed preacher | Changed event title | Keep both; preacher is Joomla-owned. Reflect title according to calendar owner. |
+| Changed preacher | Changed event title | Keep both. Preacher is Joomla-owned. Reflect title according to calendar owner. |
 | Changed time to 10:00 | Changed same service time to 11:00 | Mark time conflict, show baseline and both zones, require explicit choice. Avoid rewriting other dates. |
-| Service changed to member-only | Provider unexpectedly made public | Stop issuing/embedding public access under a member-only promise; show urgent privacy conflict and authorized remedy. |
+| Service changed to member-only | Provider unexpectedly made public | Stop issuing/embedding public access under a member-only promise. Show urgent privacy conflict and authorized remedy. |
 | Cancelled Thursday exception | Provider only supports deletion of all recurring events | Preserve Joomla exception, flag provider divergence. Never delete the entire series. |
 | Editor linked an existing sermon | New audio asset arrives | Keep chosen sermon, attach valid audio and preserve editor's title and publication status. |
 | Local export complete, replay embargoed | Provider posts a public VOD link | Store evidence for editor, observe local embargo on all public views. Warn that a public provider can still be visited independently. |
@@ -39,12 +39,12 @@ At 08:55 North begins rehearsal. East goes live at 09:00 and North at 09:05. One
 
 A provider API, a church's published iCalendar feed, and an editor can all describe the same service. Require one declared schedule owner and an explicit binding when importing duplicates. Optional read-only ICS subscription supports DTSTART/DTEND or DURATION, TZID/VTIMEZONE, RRULE, RDATE, EXDATE, detached RECURRENCE-ID, STATUS, SEQUENCE and LAST-MODIFIED where present. Resolve all-day entries as date announcements unless an explicit service time is supplied. A floating time requires the editor to choose its intended church zone. Never guess where a floating entry occurred.
 
-Poll using conditional HTTP requests where available, handle feed pagination/size caps and timezone parsing, and retain a last-good projection after a truncated or unavailable response. A missing event on one failed or limited fetch is not a cancellation. Use explicit cancellations or confirmed removal within a known complete window. Preserve source UID plus recurrence ID, owner and feed namespace; identical UIDs in two feeds require explicit reconciliation. Authenticate imported feeds where appropriate, keep secret subscription URLs private and reject unsafe redirects.
+Poll using conditional HTTP requests where available, handle feed pagination/size caps and timezone parsing, and retain a last-good projection after a truncated or unavailable response. A missing event on one failed or limited fetch is not a cancellation. Use explicit cancellations or confirmed removal within a known complete window. Preserve source UID plus recurrence ID, owner and feed namespace. Identical UIDs in two feeds require explicit reconciliation. Authenticate imported feeds where appropriate, keep secret subscription URLs private and reject unsafe redirects.
 
-A public “Add to calendar” export uses a stable opaque UID/DTSTAMP for the authorized event, safe URL to the church page, correct timezone/UTC and updated SEQUENCE for edits or cancellations. Do not include stream keys, member-only invites or private notes. Private subscriptions need their own scoped revocable token and cache policy. A static downloaded calendar file cannot receive later changes; label it differently from a live subscription.
+A public “Add to calendar” export uses a stable opaque UID/DTSTAMP for the authorized event, safe URL to the church page, correct timezone/UTC and updated SEQUENCE for edits or cancellations. Do not include stream keys, member-only invites or private notes. Private subscriptions need their own scoped revocable token and cache policy. A static downloaded calendar file cannot receive later changes. Label it differently from a live subscription.
 
 ## An external-only church still gets a full service
 
-A volunteer pastes the Telegram live invite, selects Sunday programme and uses the existing church microphone recording. On the site, a countdown runs until due. Without provider status, the authorized operator marks the service live; the preacher page displays a link to its church service page and the page offers the Telegram button. When finished, the volunteer uploads the audio original. The same archive flow verifies the file, creates a draft sermon with that Sunday's speaker and church, and plays the approved audio from Joomla. Neither Telegram API access nor a video replay is a prerequisite.
+A volunteer pastes the Telegram live invite, selects Sunday programme and uses the existing church microphone recording. On the site, a countdown runs until due. Without provider status, the authorized operator marks the service live. The preacher page displays a link to its church service page and the page offers the Telegram button. When finished, the volunteer uploads the audio original. The same archive flow verifies the file, creates a draft sermon with that Sunday's speaker and church, and plays the approved audio from Joomla. Neither Telegram API access nor a video replay is a prerequisite.
 
-Source: [iCalendar](https://www.rfc-editor.org/rfc/rfc5545).
+See [iCalendar](https://www.rfc-editor.org/rfc/rfc5545).
