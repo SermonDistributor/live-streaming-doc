@@ -1,0 +1,42 @@
+# Provider certification
+
+Run for each implemented capability with a disposable account or owner-approved church resource. Record provider, API version, account/plan/region, authorized operations, resulting resource types, public-browser result, recording verification and teardown. Mark observed, provider-documented only, account-gated, unavailable, or failed. A manual URL profile can pass its advertised features without claiming authenticated functions.
+
+| Provider/workflow | Positive fixture | Failure or boundary | Pass evidence |
+| --- | --- | --- | --- |
+| Mux existing input | Adopt reusable input, run one short enabled test broadcast, record asset ID and playback ID | Archive-ready before end; duplicate per-file ready; temporary master expires | One service, correct preacher, distinct live/replay IDs, two verified local tracks when present. Test streams are watermarked, limited to five minutes and recorded test asset expires after 24 hours under the reviewed API. |
+| Mux private | Signed live and signed recorded asset; login then watch long enough to require token refresh | Expired session or membership revoked before token refresh | Restricted account can watch while authorized. No public playback ID exposes a private service. |
+| Cloudflare | Existing input automatic recording, two Sundays; fetch lifecycle and both MP4/M4A | Set recording off in rehearsal, mismatch webhook transport, or exhausted storage entitlement | Accurate capability message; two video UIDs mapped to respective occurrences and independent file verification. |
+| AWS IVS | Existing authorized channel, fresh stream ID, S3 recorded prefix with final metadata | Stream status event missed; S3 read denied, KMS denied or missing segment | Live recovery via GetStream. No false verified archive or unnecessary change to channel. |
+| YouTube | Import event, create one future mapped broadcast under authorized account, bind existing encoder | Disabled embedding, provider channel mismatch, quota exhausted or admin cancels one date | No duplicate broadcasts, working approved button, no media extraction. Original file attaches to correct sermon. |
+| Telegram link | Public live invite on mobile and desktop, and a members-only invitation | Browser without app/login or viewer outside allowed church | Honest handoff; protected invite never present on public list. No false status. |
+| Telegram admin | Schedule within permitted window, deferred future occurrence outside window, explicit start on appropriate day | Bot-only identity, admin privilege removed or FLOOD_WAIT | Local schedule persists, remote write gated, no repeated group-call creation. |
+| Vimeo | Adopt event iframe and recurring event with two successive actual clip IDs | Embed-only plan, domain lock, expired download link | Live page uses persistent event; archive uses correct clip and eligible fresh file link. |
+| Twitch | Correct parent domains, webhook challenge then online/offline, authorized schedule segment update | One-time segment unsupported, Channel renamed, VOD storage off | Church sees honest scope; player's channel updated appropriately and no nonexistent export is claimed. |
+| Facebook | Eligible Page event and public permalink, official iframe on allowed domain | Private Group link, lost Page publishing permission or recording expires | Embedding and link-only are correctly distinguished; entitlement failure leaves local calendar; no private media exposure. |
+| Restream | Existing event with two downstream platforms and recording; eligible website player | Website player not included, caller retries creating a downstream event | One production event, permitted destinations, authorized file download, one sermon. |
+| 5centsCDN | Adopt push stream, approved playback URI and entitled DVR export for actual service bounds | DVR absent, locked protocol settings, token restricted from a second domain | Existing encoder/protocols unchanged, verified export only when available, working permitted fallback. |
+| Castr | Import stream; test assigned HLS URL or provider embed and list its recordings | Account with no external HLS or disabled cloud_recording | Embed/local calendar still usable; no speculative download source. |
+| Dacast | Adopt channel with official iframe and entitled recording settings | Channel paywall or domain restrictions | Provider controls retained, direct native player offered only when actually authorized. |
+| PeerTube | Permanent live plus two sessions, schedules list with one unrelated entry | One instance has live disabled; another on older schema lacks writable schedules | Instance-specific capabilities, unrelated dates preserved, individual replayVideo IDs map to the correct services. |
+| Owncast | Adopt approved instance status and website player | Old live segments pruned from object storage | No misleading archive promise. Operator can still upload a church original. |
+| MediaMTX | Approved HLS path and enabled recording playback export | Public playback granted but private Control API inaccessible | Native viewer works independently; no management credential sent to browser. |
+| SRS | One vhost and stream, provider callback confirms start/end | on_dvr contains only a remote filesystem path | Link event safely, request authorized export/original, never treat remote path as a local file. |
+| Icecast | Authorized audio source and known matched mount | Mount active all day or listener count zero | Program/operator association determines preacher live; listener count does not end a service. |
+| Generic HLS/DASH | Valid custom domain, alternate audio, CORS enabled across all segments and tracks | Manifest OK but segment forbidden, certificate invalid or signed media expired | A useful fallback, correct scope and no unauthorized proxy workaround. |
+| Generic progressive media | Authorized church local MP4/M4A with seek and caption track | Protected file requested by anonymous GET, HEAD and Range | Media delivery is authorized across all methods; logged-in seek returns correct byte range. |
+| Church-hosted embeds | Real allowed SermonAudio/Sermon.net or similar worship webcast and canonical public link | Privacy setting prevents framing | Approved embed works or page shows the configured watch action, retaining stable church navigation. |
+| Zoom or Teams | Adopt owner-scheduled event and attendee URL, test permitted incoming owner recording | Presenter/host URL supplied as attendee, or tenant prohibits anonymous joining | Reject privileged URL, label sign-in requirement, no leaked host access. |
+| Remaining/new providers | Configure direct audio, approved iframe and external-only profile, one at a time | Unsupported schedule write, no machine-readable state, no export | All local calendars, optional manual status, original-file upload and automatic sermon attribution work independently. |
+
+## Browser and network grid
+
+Exercise the church site's normal Joomla template in Safari/iOS with native HLS where available, Chromium/Edge and Firefox with supported media/player SDK, and at least one mobile network used by the target congregation. Check private browsing/login restrictions, muted autoplay policy, screen-reader navigation, player controls, HTTPS/CORS across the complete media chain, regional blocks, and a blocked third-party domain. Record the exact media rendition and access scope that worked. Measure startup and buffering from the viewer network rather than assuming a provider's published region list proves local experience.
+
+Repeat an audio-only service at a throttled bandwidth below the HD stream rate. Ensure selecting audio prevents video downloads. Record application and CDN failures independently. For an embed that the church cannot instrument, rely on observable player/SDK events and the manual public test; iframe loading alone proves only that an iframe loaded.
+
+## Evidence suitable for release
+
+Redacted fixture timeline with UTC and local times, source ownership and observed result; sanitized API request method/resource and permissions; exact number and relationships of resulting sermons and files; browser status before/during/after live; hash and size of verified authorized test media; screenshot or DOM/keyboard evidence of fallback and menu links. Exclude production credentials, stream keys, private church records, signed URLs and recordings for which no test permission was given.
+
+Source: [Mux test stream constraints](https://www.mux.com/docs/api-reference/video/live-streams/create-live-stream).
