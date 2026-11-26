@@ -4,6 +4,10 @@ The integration uses the congregation's own Mux environment. The church pays Mux
 
 Mux automatically creates a recording asset for a live broadcast. If a church requires no upstream recording, explain this before connection and offer a compatible alternative or an independent local original. Selecting local replay changes where the congregation watches. Provider asset retention/deletion is a separate decision. A short Mux test stream can be used in an eligible account. It is watermarked, limited to five minutes, and its recorded test asset is removed after 24 hours. Complete the export test within that window. [Recording lifecycle](https://www.mux.com/docs/guides/stream-recordings-of-live-streams), [test resource settings](https://www.mux.com/docs/api-reference/video/live-streams/create-live-stream).
 
+## Open-source participation and church billing
+
+Mux explicitly invites developers to build original real-world API integrations and publishes a PHP SDK. The contributor programme asks developers to submit a pull request to a Mux repository for review and lists $50 or more in account credit among the possible awards. An example demonstrating the Joomla integration could be proposed there separately. Plan each church's production service using its own Mux account and ordinary live-video pricing. The separate Powered by Mux programme addresses developer education videos and has its own application and branding requirements. Neither programme publishes an ongoing subsidy for every church installing an open-source extension. [Contributor programme and submission steps](https://www.mux.com/oss), [Powered by Mux terms](https://www.mux.com/powered-by-mux), [production plans](https://www.mux.com/pricing).
+
 ## Connect and adopt
 
 1. Choose production or test explicitly. Store the environment token ID and secret server-side. The Video API uses HTTP Basic authentication over TLS. Read access supports discovery. Request Video write access only for creating/updating inputs or renditions. Signing keys for restricted playback, webhook signing secrets, and stream keys are separate credentials.
